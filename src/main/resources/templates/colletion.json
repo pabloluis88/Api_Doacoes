@@ -1,0 +1,449 @@
+{
+	"info": {
+		"_postman_id": "12345678-1234-1234-1234-123456789012",
+		"name": "Doações API - Entidade Filantrópica",
+		"description": "Coleção completa para testar a API de Doações com todos os endpoints: Incluir, Consultar e Deletar doações.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "123456789"
+	},
+	"item": [
+		{
+			"name": "✨ Incluir Doação",
+			"item": [
+				{
+					"name": "Incluir Doação Completa",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nomeDoador\": \"João Silva\",\n  \"cpfDoador\": \"12345678901\",\n  \"valor\": 100.50,\n  \"dataDoacao\": \"2024-12-15T10:30:00\",\n  \"emailDoador\": \"joao.silva@email.com\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/doacoes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"doacoes"
+							]
+						},
+						"description": "Inclui uma nova doação com todos os campos preenchidos."
+					},
+					"response": []
+				},
+				{
+					"name": "Incluir Doação sem Data (Data Atual)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nomeDoador\": \"Maria Santos\",\n  \"cpfDoador\": \"98765432100\",\n  \"valor\": 250.00,\n  \"emailDoador\": \"maria.santos@email.com\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/doacoes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"doacoes"
+							]
+						},
+						"description": "Inclui doação sem especificar data (usará data/hora atual)."
+					},
+					"response": []
+				},
+				{
+					"name": "Incluir Doação sem Email",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nomeDoador\": \"Pedro Oliveira\",\n  \"cpfDoador\": \"11122233344\",\n  \"valor\": 75.25\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/doacoes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"doacoes"
+							]
+						},
+						"description": "Inclui doação apenas com campos obrigatórios (email é opcional)."
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints para incluir novas doações"
+		},
+		{
+			"name": "🔍 Consultar Doações",
+			"item": [
+				{
+					"name": "Consultar Todas as Doações",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/doacoes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"doacoes"
+							]
+						},
+						"description": "Retorna todas as doações ordenadas por data (mais recentes primeiro)."
+					},
+					"response": []
+				},
+				{
+					"name": "Consultar Doação por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/doacoes/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"doacoes",
+								"1"
+							]
+						},
+						"description": "Busca uma doação específica pelo ID. Altere o '1' pelo ID desejado."
+					},
+					"response": []
+				},
+				{
+					"name": "Consultar Doações por CPF",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/doacoes/cpf/12345678901",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"doacoes",
+								"cpf",
+								"12345678901"
+							]
+						},
+						"description": "Busca todas as doações de um CPF específico."
+					},
+					"response": []
+				},
+				{
+					"name": "Consultar Doações por Nome",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/doacoes/nome/João",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"doacoes",
+								"nome",
+								"João"
+							]
+						},
+						"description": "Busca doações por nome do doador (busca parcial, case insensitive)."
+					},
+					"response": []
+				},
+				{
+					"name": "Calcular Total de Doações por CPF",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/doacoes/total/cpf/12345678901",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"doacoes",
+								"total",
+								"cpf",
+								"12345678901"
+							]
+						},
+						"description": "Calcula o valor total doado por um CPF específico."
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints para consultar doações"
+		},
+		{
+			"name": "🗑️ Deletar Doação",
+			"item": [
+				{
+					"name": "Deletar Doação por ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/doacoes/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"doacoes",
+								"1"
+							]
+						},
+						"description": "Remove uma doação pelo ID. Altere o '1' pelo ID que deseja deletar."
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints para deletar doações"
+		},
+		{
+			"name": "🧪 Testes de Validação",
+			"item": [
+				{
+					"name": "❌ Valor Inválido (Negativo)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nomeDoador\": \"Teste Valor Negativo\",\n  \"cpfDoador\": \"11111111111\",\n  \"valor\": -10.00,\n  \"emailDoador\": \"teste@email.com\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/doacoes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"doacoes"
+							]
+						},
+						"description": "Teste que deve retornar erro 400 - valor não pode ser negativo."
+					},
+					"response": []
+				},
+				{
+					"name": "❌ Valor Zero",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nomeDoador\": \"Teste Valor Zero\",\n  \"cpfDoador\": \"22222222222\",\n  \"valor\": 0.00,\n  \"emailDoador\": \"teste.zero@email.com\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/doacoes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"doacoes"
+							]
+						},
+						"description": "Teste que deve retornar erro 400 - valor deve ser maior que 0,00."
+					},
+					"response": []
+				},
+				{
+					"name": "❌ CPF Inválido",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nomeDoador\": \"Teste CPF Inválido\",\n  \"cpfDoador\": \"123\",\n  \"valor\": 50.00,\n  \"emailDoador\": \"teste.cpf@email.com\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/doacoes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"doacoes"
+							]
+						},
+						"description": "Teste que deve retornar erro 400 - CPF deve ter 11 dígitos."
+					},
+					"response": []
+				},
+				{
+					"name": "❌ Campos Obrigatórios Nulos",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nomeDoador\": \"\",\n  \"cpfDoador\": null,\n  \"valor\": null,\n  \"emailDoador\": \"email-sem-arroba\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/doacoes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"doacoes"
+							]
+						},
+						"description": "Teste que deve retornar múltiplos erros de validação."
+					},
+					"response": []
+				},
+				{
+					"name": "❌ Email Inválido",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nomeDoador\": \"Teste Email Inválido\",\n  \"cpfDoador\": \"33333333333\",\n  \"valor\": 100.00,\n  \"emailDoador\": \"email-invalido\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/doacoes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"doacoes"
+							]
+						},
+						"description": "Teste que deve retornar erro 400 - formato de email inválido."
+					},
+					"response": []
+				},
+				{
+					"name": "❌ Consultar ID Inexistente",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/doacoes/999999",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"doacoes",
+								"999999"
+							]
+						},
+						"description": "Teste que deve retornar 404 - doação não encontrada."
+					},
+					"response": []
+				},
+				{
+					"name": "❌ Deletar ID Inexistente",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/doacoes/999999",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"doacoes",
+								"999999"
+							]
+						},
+						"description": "Teste que deve retornar 404 - doação não encontrada para deletar."
+					},
+					"response": []
+				}
+			],
+			"description": "Testes para verificar se as validações estão funcionando corretamente"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+}
